@@ -140,7 +140,7 @@ if (WIN32)
 	get_filename_component(QT_BINARY_DIR "${QT_MOC_EXECUTABLE}" PATH)
 	set(QT_PLUGINS_DIR "${QT_BINARY_DIR}/../plugins")
 	
-	message ("QT_PLUGINS_DIR: ${QT_PLUGINS_DIR})
+	message ("QT_PLUGINS_DIR: ${QT_PLUGINS_DIR}")
 
 	function(COPY_QT_BINARIES IS_DEBUG IS_APP)
 		set(SUFFIX "")
