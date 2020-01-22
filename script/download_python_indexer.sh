@@ -16,8 +16,6 @@ elif [ "$OSTYPE" == "msys" ]; then
 	PLATFORM='windows'
 fi
 
-echo "foo"
-
 PACKAGE_NAME="SourcetrailPythonIndexer_${SOURCETRAIL_PYTHON_INDEXER_VERSION}-${PLATFORM}"
 PACKAGE_FILE_NAME="${PACKAGE_NAME}.zip"
 PACKAGE_URL="https://github.com/CoatiSoftware/SourcetrailPythonIndexer/releases/download/${SOURCETRAIL_PYTHON_INDEXER_VERSION}/${PACKAGE_FILE_NAME}"
@@ -89,6 +87,7 @@ if [ $PLATFORM == "linux" ]; then
 elif [ $PLATFORM == "osx" ]; then
 	unzip -d $TEMP_PATH $TEMP_PATH/$PACKAGE_FILE_NAME
 elif [ $PLATFORM == "windows" ]; then
+	echo -e $INFO "extracting file: $TEMP_PATH/$PACKAGE_FILE_NAME to $TEMP_PATH"
 	winrar x $TEMP_PATH/$PACKAGE_FILE_NAME $TEMP_PATH
 fi
 
