@@ -16,6 +16,8 @@ elif [ "$OSTYPE" == "msys" ]; then
 	PLATFORM='windows'
 fi
 
+echo "foo"
+
 PACKAGE_NAME="SourcetrailPythonIndexer_${SOURCETRAIL_PYTHON_INDEXER_VERSION}-${PLATFORM}"
 PACKAGE_FILE_NAME="${PACKAGE_NAME}.zip"
 PACKAGE_URL="https://github.com/CoatiSoftware/SourcetrailPythonIndexer/releases/download/${SOURCETRAIL_PYTHON_INDEXER_VERSION}/${PACKAGE_FILE_NAME}"
