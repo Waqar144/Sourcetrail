@@ -97,6 +97,3 @@ rm -rf $TARGET_PATH
 mkdir -p $TARGET_PATH
 cp -r $TEMP_PATH/$PACKAGE_NAME/* $TARGET_PATH
 
-
-echo -e $INFO "clearing temporary data at $TEMP_PATH"
-rm -rf $TEMP_PATH
