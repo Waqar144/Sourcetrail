@@ -209,20 +209,24 @@ if (WIN32)
 	EXECUTE_PROCESS(
 		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "&" "exit"
 		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "&" "exit"
+		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\test\\data" "&" "exit"
 	)
 	EXECUTE_PROCESS(
 		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data" "&" "exit"
 		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user" "&" "exit"
+		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\test\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\test\\data" "&" "exit"
 	)
 
 	if (CONFIGURE_WINDOWS_DEBUG)
 		EXECUTE_PROCESS(
 			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "&" "exit" 
 			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "&" "exit"
+			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\test\\data" "&" "exit" 
 		)
-		EXECUTE_PROCESS( 
+		EXECUTE_PROCESS(
 			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data" "&" "exit"
 			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user" "&" "exit"
+			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\test\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\test\\data" "&" "exit"
 		)
 	endif()
 	
