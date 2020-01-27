@@ -105,17 +105,19 @@ std::wstring indexerCommandCxxToString(
 {
 	std::wstring result;
 	result += L"SourceFilePath: \"" +
-		indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr() + L"\"\n";
+		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		L"\"\n";
 	for (const FilePath& indexedPath: indexerCommand->getIndexedPaths())
 	{
-		result += L"\tIndexedPath: \"" + indexedPath.getRelativeTo(baseDirectory).wstr() + L"\"\n";
+		result += L"\tIndexedPath: \"" +
+			utility::toLowerCase(indexedPath.getRelativeTo(baseDirectory).wstr()) + L"\"\n";
 	}
 	for (std::wstring compilerFlag: indexerCommand->getCompilerFlags())
 	{
 		FilePath flagAsPath(compilerFlag);
 		if (flagAsPath.exists())
 		{
-			compilerFlag = flagAsPath.getRelativeTo(baseDirectory).wstr();
+			compilerFlag = utility::toLowerCase(flagAsPath.getRelativeTo(baseDirectory).wstr());
 		}
 		result += L"\tCompilerFlag: \"" + compilerFlag + L"\"\n";
 	}
@@ -132,13 +134,14 @@ std::wstring indexerCommandJavaToString(
 	std::shared_ptr<const IndexerCommandJava> indexerCommand, const FilePath& baseDirectory)
 {
 	std::wstring result;
-	result += L"SourceFilePath (" + baseDirectory.wstr() + L"): \"" +
-		indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr() + L"\"\n";
+	result += L"SourceFilePath: \"" +
+		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		L"\"\n";
 	result += L"\tLanguageStandard: \"" + indexerCommand->getLanguageStandard() + L"\"\n";
 	for (const FilePath& classPathItem: indexerCommand->getClassPath())
 	{
-		result += L"\tClassPathItem: \"" + classPathItem.getRelativeTo(baseDirectory).wstr() +
-			L"\"\n";
+		result += L"\tClassPathItem: \"" +
+			utility::toLowerCase(classPathItem.getRelativeTo(baseDirectory).wstr()) + L"\"\n";
 	}
 	return result;
 }
@@ -149,7 +152,8 @@ std::wstring indexerCommandCustomToString(
 {
 	std::wstring result;
 	result += L"SourceFilePath: \"" +
-		indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr() + L"\"\n";
+		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		L"\"\n";
 	result += L"\tCustom Command: \"" + indexerCommand->getCustomCommand() + L"\"\n";
 	return result;
 }
