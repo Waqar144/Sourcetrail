@@ -105,19 +105,23 @@ std::wstring indexerCommandCxxToString(
 {
 	std::wstring result;
 	result += L"SourceFilePath: \"" +
-		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		FilePath(utility::toLowerCase(indexerCommand->getSourceFilePath().wstr()))
+			.getRelativeTo(baseDirectory)
+			.wstr() +
 		L"\"\n";
 	for (const FilePath& indexedPath: indexerCommand->getIndexedPaths())
 	{
 		result += L"\tIndexedPath: \"" +
-			utility::toLowerCase(indexedPath.getRelativeTo(baseDirectory).wstr()) + L"\"\n";
+			FilePath(utility::toLowerCase(indexedPath.wstr())).getRelativeTo(baseDirectory).wstr() +
+			L"\"\n";
 	}
 	for (std::wstring compilerFlag: indexerCommand->getCompilerFlags())
 	{
 		FilePath flagAsPath(compilerFlag);
 		if (flagAsPath.exists())
 		{
-			compilerFlag = utility::toLowerCase(flagAsPath.getRelativeTo(baseDirectory).wstr());
+			compilerFlag =
+				FilePath(utility::toLowerCase(flagAsPath.wstr())).getRelativeTo(baseDirectory).wstr();
 		}
 		result += L"\tCompilerFlag: \"" + compilerFlag + L"\"\n";
 	}
@@ -135,13 +139,16 @@ std::wstring indexerCommandJavaToString(
 {
 	std::wstring result;
 	result += L"SourceFilePath: \"" +
-		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		FilePath(utility::toLowerCase(indexerCommand->getSourceFilePath().wstr()))
+			.getRelativeTo(baseDirectory)
+			.wstr() +
 		L"\"\n";
 	result += L"\tLanguageStandard: \"" + indexerCommand->getLanguageStandard() + L"\"\n";
 	for (const FilePath& classPathItem: indexerCommand->getClassPath())
 	{
 		result += L"\tClassPathItem: \"" +
-			utility::toLowerCase(classPathItem.getRelativeTo(baseDirectory).wstr()) + L"\"\n";
+			FilePath(utility::toLowerCase(classPathItem.wstr())).getRelativeTo(baseDirectory).wstr() +
+			L"\"\n";
 	}
 	return result;
 }
@@ -152,15 +159,17 @@ std::wstring indexerCommandCustomToString(
 {
 	std::wstring result;
 	result += L"SourceFilePath: \"" +
-		utility::toLowerCase(indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr()) +
+		FilePath(utility::toLowerCase(indexerCommand->getSourceFilePath().wstr()))
+			.getRelativeTo(baseDirectory)
+			.wstr() +
 		L"\"\n";
 	result += L"\tCustom Command: \"" + indexerCommand->getCustomCommand() + L"\"\n";
 	return result;
 }
 
-std::wstring indexerCommandToString(
-	std::shared_ptr<IndexerCommand> indexerCommand, const FilePath& baseDirectory)
+std::wstring indexerCommandToString(std::shared_ptr<IndexerCommand> indexerCommand, FilePath baseDirectory)
 {
+	baseDirectory = FilePath(utility::toLowerCase(baseDirectory.wstr()));
 	if (indexerCommand)
 	{
 #if BUILD_CXX_LANGUAGE_PACKAGE
