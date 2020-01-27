@@ -202,7 +202,18 @@ if (WIN32)
 	endif()
 	COPY_QT_BINARIES(False True)
 	COPY_QT_BINARIES(False False)
+	
+	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR})
+	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
+	
+	EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data")
+	EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user")
 
+	if (CONFIGURE_WINDOWS_DEBUG)
+		EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data")
+		EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user")
+	endif()
+	
 	configure_file("${CMAKE_SOURCE_DIR}/setup/icon/windows/sourcetrail.ico" "${CMAKE_BINARY_DIR}/${CONFIGURATION}/sourcetrail.ico" COPYONLY)
 
 endif()
@@ -604,19 +615,6 @@ if (WIN32)
 
 	# generate pdb for release build
 	set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
-
-	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR})
-	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
-
-	add_custom_command(
-		TARGET ${APP_PROJECT_NAME}
-		POST_BUILD
-		COMMAND  rmdir "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" & mklink /d /j "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
-		COMMAND  rmdir "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" & mklink /d /j "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
-		COMMAND  rmdir "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" & mklink /d /j "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
-		COMMAND  rmdir "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" & mklink /d /j "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
-		COMMENT "create symbolic links for data"
-	)
 else ()
 	add_executable(${APP_PROJECT_NAME} ${APP_FILES})
 endif ()
