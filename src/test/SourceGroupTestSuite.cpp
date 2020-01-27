@@ -132,7 +132,7 @@ std::wstring indexerCommandJavaToString(
 	std::shared_ptr<const IndexerCommandJava> indexerCommand, const FilePath& baseDirectory)
 {
 	std::wstring result;
-	result += L"SourceFilePath: \"" +
+	result += L"SourceFilePath (" + baseDirectory.wstr() + "): \"" +
 		indexerCommand->getSourceFilePath().getRelativeTo(baseDirectory).wstr() + L"\"\n";
 	result += L"\tLanguageStandard: \"" + indexerCommand->getLanguageStandard() + L"\"\n";
 	for (const FilePath& classPathItem: indexerCommand->getClassPath())
