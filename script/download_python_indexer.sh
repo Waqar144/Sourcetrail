@@ -88,7 +88,7 @@ elif [ $PLATFORM == "osx" ]; then
 	unzip -d $TEMP_PATH $TEMP_PATH/$PACKAGE_FILE_NAME
 elif [ $PLATFORM == "windows" ]; then
 	echo -e $INFO "extracting file: $TEMP_PATH/$PACKAGE_FILE_NAME to $TEMP_PATH"
-	winrar x $TEMP_PATH/$PACKAGE_FILE_NAME $TEMP_PATH
+	7z.exe x -o$TEMP_PATH $TEMP_PATH/$PACKAGE_FILE_NAME
 fi
 
 
