@@ -207,22 +207,22 @@ if (WIN32)
 	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 	
 	EXECUTE_PROCESS(
-		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data"
-		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user"
+		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "&" "exit"
+		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "&" "exit"
 	)
 	EXECUTE_PROCESS(
-		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
-		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
+		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data" "&" "exit"
+		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user" "&" "exit"
 	)
 
 	if (CONFIGURE_WINDOWS_DEBUG)
 		EXECUTE_PROCESS(
-			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" 
-			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user"
+			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "&" "exit" 
+			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "&" "exit"
 		)
 		EXECUTE_PROCESS( 
-			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
-			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
+			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data" "&" "exit"
+			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user" "&" "exit"
 		)
 	endif()
 	
