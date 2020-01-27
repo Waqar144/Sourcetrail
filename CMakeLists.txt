@@ -206,12 +206,24 @@ if (WIN32)
 	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR})
 	string(REGEX REPLACE "/" "\\\\" BACKSLASHED_CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 	
-	EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data")
-	EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user")
+	EXECUTE_PROCESS(
+		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data"
+		COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user"
+	)
+	EXECUTE_PROCESS(
+		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
+		COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Release\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
+	)
 
 	if (CONFIGURE_WINDOWS_DEBUG)
-		EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data")
-		EXECUTE_PROCESS(COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "&" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user")
+		EXECUTE_PROCESS(
+			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" 
+			COMMAND "cmd.exe" "/K" "rmdir" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user"
+		)
+		EXECUTE_PROCESS( 
+			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\data" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\data"
+			COMMAND "cmd.exe" "/K" "mklink" "/d" "/j" "${BACKSLASHED_CMAKE_BINARY_DIR}\\Debug\\app\\user" "${BACKSLASHED_CMAKE_SOURCE_DIR}\\bin\\app\\user"
+		)
 	endif()
 	
 	configure_file("${CMAKE_SOURCE_DIR}/setup/icon/windows/sourcetrail.ico" "${CMAKE_BINARY_DIR}/${CONFIGURATION}/sourcetrail.ico" COPYONLY)
